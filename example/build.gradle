@@ -1,0 +1,15 @@
+plugins {
+    id 'java'
+}
+
+group 'example'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':core')
+    implementation project(':annotations')
+    annotationProcessor project(':processor')
+}

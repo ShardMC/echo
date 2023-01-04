@@ -1,0 +1,4 @@
+io.shardmc.echo.core.transformer.impl.InjectTransformer
+io.shardmc.echo.core.transformer.impl.MethodMergeTransformer
+io.shardmc.echo.core.transformer.impl.FieldMergeTransformer
+io.shardmc.echo.core.transformer.impl.DefineTransformer

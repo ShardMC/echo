@@ -1,0 +1,8 @@
+rootProject.name = 'echo'
+
+include 'core'
+include 'annotations'
+include 'processor'
+include 'example'
+include 'util'
+
