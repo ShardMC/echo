@@ -75,4 +75,13 @@ public class FieldNode extends SimpleFieldVisitor {
     public List<AnnotationNode> getAnnotations() {
         return this.annotations;
     }
+
+    @Override
+    public String toString() {
+        return "FieldNode{" +
+                "attrs=" + attrs +
+                ", annotations=" + annotations +
+                ", typeAnnotations=" + typeAnnotations +
+                '}';
+    }
 }

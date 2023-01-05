@@ -9,6 +9,7 @@ import woid.node.method.insn.InsnList;
 import woid.node.method.*;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class MethodNode extends SimpleMethodVisitor {
@@ -221,11 +222,6 @@ public class MethodNode extends SimpleMethodVisitor {
         this.instructions.add(new MultiANewArrayInsnNode(descriptor, numDimensions));
     }
 
-    /**
-     * Makes the given class visitor visit this method.
-     *
-     * @param classVisitor a class visitor.
-     */
     public void accept(ClassVisitor classVisitor) {
         MethodVisitor methodVisitor = classVisitor.visitMethod(this.getAccess(), this.getName(), this.getDescriptor(), this.getSignature(), this.getExceptions());
 
@@ -236,13 +232,7 @@ public class MethodNode extends SimpleMethodVisitor {
 
     private boolean visited = false;
 
-    /**
-     * Makes the given method visitor visit this method.
-     *
-     * @param methodVisitor a method visitor.
-     */
     public void accept(MethodVisitor methodVisitor) {
-        // Visit the parameters.
         for (ParameterNode parameter : this.parameters) {
             parameter.accept(methodVisitor);
         }
@@ -308,18 +298,14 @@ public class MethodNode extends SimpleMethodVisitor {
             methodVisitor.visitAttribute(attr);
         }
 
-        // Visit the code.
         if (this.instructions.size() > 0) {
             methodVisitor.visitCode();
-            // Visits the try catch blocks.
             for (TryCatchBlockNode tryCatchBlock : this.tryCatchBlocks) {
                 tryCatchBlock.accept(methodVisitor);
             }
 
-            // Visit the instructions.
             this.instructions.accept(methodVisitor);
 
-            // Visits the local variables.
             for (LocalVariableNode localVariable : this.localVariables) {
                 localVariable.accept(methodVisitor);
             }
@@ -341,5 +327,27 @@ public class MethodNode extends SimpleMethodVisitor {
 
     public boolean equals(String name, String desc) {
         return this.getName().equals(name) && this.getDescriptor().equals(desc);
+    }
+
+    @Override
+    public String toString() {
+        return "MethodNode{" +
+                "maxStack=" + maxStack +
+                ", maxLocals=" + maxLocals +
+                ", annotationDefault=" + annotationDefault +
+                ", visibleAnnotableParameterCount=" + visibleAnnotableParameterCount +
+                ", invisibleAnnotableParameterCount=" + invisibleAnnotableParameterCount +
+                ", visibleParameterAnnotations=" + Arrays.toString(visibleParameterAnnotations) +
+                ", invisibleParameterAnnotations=" + Arrays.toString(invisibleParameterAnnotations) +
+                ", annotations=" + annotations +
+                ", typeAnnotations=" + typeAnnotations +
+                ", localVariableAnnotations=" + localVariableAnnotations +
+                ", attributes=" + attributes +
+                ", tryCatchBlocks=" + tryCatchBlocks +
+                ", parameters=" + parameters +
+                ", localVariables=" + localVariables +
+                ", instructions=" + instructions +
+                ", visited=" + visited +
+                '}';
     }
 }

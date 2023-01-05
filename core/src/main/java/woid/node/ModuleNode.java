@@ -11,76 +11,20 @@ import woid.node.module.ModuleRequireNode;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * A node that represents a module declaration.
- *
- * @author Remi Forax
- */
 public class ModuleNode extends ModuleVisitor {
 
-    /**
-     * The fully qualified name (using dots) of this module.
-     */
     private final String name;
-
-    /**
-     * The module's access flags, among {@code ACC_OPEN}, {@code ACC_SYNTHETIC} and {@code
-     * ACC_MANDATED}.
-     */
     private final int access;
-
-    /**
-     * The version of this module. May be {@literal null}.
-     */
     private final String version;
-
-    /**
-     * The internal name of the main class of this module (see {@link
-     * org.objectweb.asm.Type#getInternalName()}). May be {@literal null}.
-     */
     private String mainClass;
 
-    /**
-     * The internal name of the packages declared by this module (see {@link
-     * org.objectweb.asm.Type#getInternalName()}). May be {@literal null}.
-     */
-    private final List<String> packages = new ArrayList<>(5);
-
-    /**
-     * The dependencies of this module. May be {@literal null}.
-     */
-    private final List<ModuleRequireNode> requires = new ArrayList<>(5);
-
-    /**
-     * The packages exported by this module. May be {@literal null}.
-     */
-    private final List<ModuleExportNode> exports = new ArrayList<>(5);
-
-    /**
-     * The packages opened by this module. May be {@literal null}.
-     */
-    private final List<ModuleOpenNode> opens = new ArrayList<>(5);
-
-    /**
-     * The internal names of the services used by this module (see {@link
-     * org.objectweb.asm.Type#getInternalName()}).
-     */
     private final List<String> uses = new ArrayList<>(5);
-
-    /**
-     * The services provided by this module. May be {@literal null}.
-     */
+    private final List<String> packages = new ArrayList<>(5);
+    private final List<ModuleOpenNode> opens = new ArrayList<>(5);
+    private final List<ModuleExportNode> exports = new ArrayList<>(5);
+    private final List<ModuleRequireNode> requires = new ArrayList<>(5);
     private final List<ModuleProvideNode> provides = new ArrayList<>(5);
 
-    /**
-     * Constructs a {@link ModuleNode}. <i>Subclasses must not use this constructor</i>.
-     *
-     * @param name    the fully qualified name (using dots) of the module.
-     * @param access  the module access flags, among {@code ACC_OPEN}, {@code ACC_SYNTHETIC} and {@code
-     *                ACC_MANDATED}.
-     * @param version the module version, or {@literal null}.
-     * @throws IllegalStateException If a subclass calls this constructor.
-     */
     public ModuleNode(String name, int access, String version) {
         super(Opcodes.ASM9);
 
@@ -128,11 +72,6 @@ public class ModuleNode extends ModuleVisitor {
         this.provides.add(new ModuleProvideNode(service, providers));
     }
 
-    /**
-     * Makes the given class visitor visit this module.
-     *
-     * @param classVisitor a class visitor.
-     */
     public void accept(ClassVisitor classVisitor) {
         ModuleVisitor moduleVisitor = classVisitor.visitModule(name, access, version);
 

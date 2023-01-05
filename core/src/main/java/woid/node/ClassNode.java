@@ -8,6 +8,7 @@ import woid.node.clazz.RecordComponentNode;
 import woid.simple.SimpleClassVisitor;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ClassNode extends SimpleClassVisitor {
@@ -168,37 +169,30 @@ public class ClassNode extends SimpleClassVisitor {
             );
         }
 
-        // Visit the non-standard attributes.
         for (Attribute attr : this.attributes) {
             classVisitor.visitAttribute(attr);
         }
 
-        // Visit the nest members.
         for (String nestMember : this.nestMembers) {
             classVisitor.visitNestMember(nestMember);
         }
 
-        // Visit the permitted subclasses.
         for (String permittedSubclass : this.permittedSubclasses) {
             classVisitor.visitPermittedSubclass(permittedSubclass);
         }
 
-        // Visit the inner classes.
         for (InnerClassNode innerClass : this.innerClasses) {
             innerClass.accept(classVisitor);
         }
 
-        // Visit the record components.
         for (RecordComponentNode recordComponent : this.recordComponents) {
             recordComponent.accept(classVisitor);
         }
 
-        // Visit the fields.
         for (FieldNode field : this.fields) {
             field.accept(classVisitor);
         }
 
-        // Visit the methods.
         for (MethodNode method : this.methods) {
             method.accept(classVisitor);
         }
@@ -232,5 +226,33 @@ public class ClassNode extends SimpleClassVisitor {
 
     public List<FieldNode> getFields() {
         return this.fields;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassNode{" +
+                "version=" + version +
+                ", access=" + access +
+                ", name='" + name + '\'' +
+                ", signature='" + signature + '\'' +
+                ", superName='" + superName + '\'' +
+                ", interfaces=" + Arrays.toString(interfaces) +
+                ", file='" + file + '\'' +
+                ", debug='" + debug + '\'' +
+                ", module=" + module +
+                ", nestHostClass='" + nestHostClass + '\'' +
+                ", outerClass='" + outerClass + '\'' +
+                ", outerMethod='" + outerMethod + '\'' +
+                ", outerMethodDesc='" + outerMethodDesc + '\'' +
+                ", annotations=" + annotations +
+                ", typeAnnotations=" + typeAnnotations +
+                ", nestMembers=" + nestMembers +
+                ", attributes=" + attributes +
+                ", permittedSubclasses=" + permittedSubclasses +
+                ", innerClasses=" + innerClasses +
+                ", recordComponents=" + recordComponents +
+                ", fields=" + fields +
+                ", methods=" + methods +
+                '}';
     }
 }
