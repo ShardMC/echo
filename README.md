@@ -7,4 +7,5 @@
 _Documentation coming soon..._
 
 ## Roadmap
-- [ ] Make Echo logo better ;-;
+- [ ] Optimize
+- [ ] Add more inject annotations, such as `@Add`, `@After` and `@Before`
