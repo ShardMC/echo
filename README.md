@@ -2,7 +2,7 @@
   <img src="assets/logo.webp" alt="Echo Logo" width="80px" height="80px">
 </p>
 <h1 align="center">Echo</h1>
-<h3 align="center">A simple bytecode manipulation library for <a href="https://github.com/shardmc/">ShardMC</a></h3>
+<h3 align="center">Mixin and bytecode weaving framework for Java using <a href="https://asm.ow2.io/">ASM</a></h3>
 
 _Documentation coming soon..._
 
