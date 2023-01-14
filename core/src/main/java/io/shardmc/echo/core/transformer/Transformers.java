@@ -1,7 +1,7 @@
 package io.shardmc.echo.core.transformer;
 
 import io.shardmc.echo.core.transformer.event.Event;
-import io.shardmc.echo.core.transformer.type.Transformer;
+import io.shardmc.echo.core.transformer.type.base.Transformer;
 
 import java.util.ServiceLoader;
 

@@ -31,7 +31,7 @@ public class MethodNode extends SimpleMethodVisitor {
     private final List<ParameterNode> parameters = new ArrayList<>(5);
     private final List<LocalVariableNode> localVariables = new ArrayList<>(5);
 
-    public final InsnList instructions = new InsnList();
+    private final InsnList instructions = new InsnList();
 
     public MethodNode(int access, String name, String descriptor, String signature, String[] exceptions) {
         super(access, name, descriptor, signature, exceptions);
@@ -325,7 +325,11 @@ public class MethodNode extends SimpleMethodVisitor {
         return this.annotations;
     }
 
-    public boolean equals(String name, String desc) {
+    public InsnList getInstructions() {
+        return this.instructions;
+    }
+
+    public boolean by(String name, String desc) {
         return this.getName().equals(name) && this.getDescriptor().equals(desc);
     }
 

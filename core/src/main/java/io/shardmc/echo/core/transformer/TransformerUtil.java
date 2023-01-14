@@ -6,6 +6,10 @@ import woid.node.ClassNode;
 import woid.node.FieldNode;
 import woid.node.MethodNode;
 import woid.node.annotation.AnnotationNode;
+import woid.node.method.insn.InsnList;
+import woid.node.method.insn.impl.FieldInsnNode;
+import woid.node.method.insn.impl.MethodInsnNode;
+import woid.node.method.insn.impl.VarInsnNode;
 
 import java.io.IOException;
 import java.util.List;
@@ -14,23 +18,14 @@ import java.util.List;
 public class TransformerUtil {
 
     public static boolean hasAnnotation(MethodNode method, String annotationClass) {
-        if (method.getAnnotations() == null)
-            return false;
-
         return method.getAnnotations().parallelStream().anyMatch(annotation -> annotation.equals(annotationClass));
     }
 
     public static boolean hasAnnotation(FieldNode field, String annotationClass) {
-        if (field.getAnnotations() == null)
-            return false;
-
         return field.getAnnotations().parallelStream().anyMatch(annotation -> annotation.equals(annotationClass));
     }
 
     public static AnnotationNode getAnnotation(MethodNode method, String annotationClass) {
-        if (method.getAnnotations() == null)
-            return null;
-
         return method.getAnnotations().parallelStream().filter(annotation -> annotation.equals(annotationClass)).findFirst().orElse(null);
     }
 
@@ -59,5 +54,23 @@ public class TransformerUtil {
         //classes.parallelStream().forEach(s -> nodes.add(TransformerUtil.createClassNode(s)));
 
         return classes.parallelStream().map(TransformerUtil::createClassNode).toList();
+    }
+
+    public static MethodNode findMethod(ClassNode clazz, String name, String desc) {
+        return clazz.getMethods().parallelStream().filter(node -> node.by(name, desc)).findFirst().orElse(null);
+    }
+
+    public static void filterInsns(MethodNode method, String from, String to, boolean removeReturns) {
+        method.getInstructions().parallelStream()
+                .forEach(node -> {
+                    if (node instanceof MethodInsnNode methodNode && methodNode.getOwner().equals(from)) {
+                        methodNode.setOwner(to);
+                    }
+
+                    if (node instanceof FieldInsnNode fieldNode && fieldNode.getOwner().equals(from)) {
+                        fieldNode.setOwner(to);
+                    }
+                });
+
     }
 }

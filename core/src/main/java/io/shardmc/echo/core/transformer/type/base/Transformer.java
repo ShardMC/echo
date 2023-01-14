@@ -1,4 +1,4 @@
-package io.shardmc.echo.core.transformer.type;
+package io.shardmc.echo.core.transformer.type.base;
 
 import io.shardmc.echo.core.transformer.event.Event;
 

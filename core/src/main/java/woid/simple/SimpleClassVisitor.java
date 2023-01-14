@@ -5,7 +5,7 @@ import org.objectweb.asm.Opcodes;
 
 public class SimpleClassVisitor extends ClassVisitor {
 
-    protected SimpleClassVisitor() {
+    public SimpleClassVisitor() {
         super(Opcodes.ASM9);
     }
 

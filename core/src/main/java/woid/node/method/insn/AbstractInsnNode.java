@@ -31,6 +31,10 @@ public abstract class AbstractInsnNode {
 
     public abstract int getType();
 
+    public int getOpcode() {
+        return this.opcode;
+    }
+
     public abstract void accept(MethodVisitor methodVisitor);
 
     @SuppressWarnings("all")

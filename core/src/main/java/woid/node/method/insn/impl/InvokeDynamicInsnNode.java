@@ -13,34 +13,34 @@ import woid.node.method.insn.AbstractInsnNode;
 public class InvokeDynamicInsnNode extends AbstractInsnNode {
 
     /**
-     * The method's name.
+     * The onMethod's name.
      */
     private final String name;
 
     /**
-     * The method's descriptor (see {@link org.objectweb.asm.Type}).
+     * The onMethod's descriptor (see {@link org.objectweb.asm.Type}).
      */
     private final String desc;
 
     /**
-     * The bootstrap method.
+     * The bootstrap onMethod.
      */
     private final Handle bsm;
 
     /**
-     * The bootstrap method constant arguments.
+     * The bootstrap onMethod constant arguments.
      */
     private final Object[] bsmArgs;
 
     /**
      * Constructs a new {@link InvokeDynamicInsnNode}.
      *
-     * @param name                     the method's name.
-     * @param descriptor               the method's descriptor (see {@link org.objectweb.asm.Type}).
-     * @param bootstrapMethodHandle    the bootstrap method.
-     * @param bootstrapMethodArguments the bootstrap method constant arguments. Each argument must be
+     * @param name                     the onMethod's name.
+     * @param descriptor               the onMethod's descriptor (see {@link org.objectweb.asm.Type}).
+     * @param bootstrapMethodHandle    the bootstrap onMethod.
+     * @param bootstrapMethodArguments the bootstrap onMethod constant arguments. Each argument must be
      *                                 an {@link Integer}, {@link Float}, {@link Long}, {@link Double}, {@link String}, {@link
-     *                                 org.objectweb.asm.Type} or {@link Handle} value. This method is allowed to modify the
+     *                                 org.objectweb.asm.Type} or {@link Handle} value. This onMethod is allowed to modify the
      *                                 content of the array so a caller should expect that this array may change.
      */
     public InvokeDynamicInsnNode(String name, String descriptor, Handle bootstrapMethodHandle, Object... bootstrapMethodArguments) {

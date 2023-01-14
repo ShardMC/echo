@@ -4,15 +4,15 @@ import org.objectweb.asm.MethodVisitor;
 import woid.node.method.insn.AbstractInsnNode;
 
 /**
- * A node that represents a method instruction. A method instruction is an instruction that invokes
- * a method.
+ * A node that represents a onMethod instruction. A onMethod instruction is an instruction that invokes
+ * a onMethod.
  *
  * @author Eric Bruneton
  */
 public class MethodInsnNode extends AbstractInsnNode {
 
     /**
-     * The internal name of the method's owner class (see {@link
+     * The internal name of the onMethod's owner class (see {@link
      * org.objectweb.asm.Type#getInternalName()}).
      *
      * <p>For methods of arrays, e.g., {@code clone()}, the array type descriptor.
@@ -20,17 +20,17 @@ public class MethodInsnNode extends AbstractInsnNode {
     private String owner;
 
     /**
-     * The method's name.
+     * The onMethod's name.
      */
     private final String name;
 
     /**
-     * The method's descriptor (see {@link org.objectweb.asm.Type}).
+     * The onMethod's descriptor (see {@link org.objectweb.asm.Type}).
      */
     private final String desc;
 
     /**
-     * Whether the method's owner class if an interface.
+     * Whether the onMethod's owner class if an interface.
      */
     public final boolean itf;
 
@@ -39,11 +39,11 @@ public class MethodInsnNode extends AbstractInsnNode {
      *
      * @param opcode      the opcode of the type instruction to be constructed. This opcode must be
      *                    INVOKEVIRTUAL, INVOKESPECIAL, INVOKESTATIC or INVOKEINTERFACE.
-     * @param owner       the internal name of the method's owner class (see {@link
+     * @param owner       the internal name of the onMethod's owner class (see {@link
      *                    org.objectweb.asm.Type#getInternalName()}).
-     * @param name        the method's name.
-     * @param descriptor  the method's descriptor (see {@link org.objectweb.asm.Type}).
-     * @param isInterface if the method's owner class is an interface.
+     * @param name        the onMethod's name.
+     * @param descriptor  the onMethod's descriptor (see {@link org.objectweb.asm.Type}).
+     * @param isInterface if the onMethod's owner class is an interface.
      */
     public MethodInsnNode(int opcode, String owner, String name, String descriptor, boolean isInterface) {
         super(opcode);

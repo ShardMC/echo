@@ -1,6 +1,7 @@
 package io.shardmc.echo.core.transformer.type;
 
 import io.shardmc.echo.core.transformer.event.Event;
+import io.shardmc.echo.core.transformer.type.base.Transformer;
 import woid.node.ClassNode;
 import woid.node.MethodNode;
 
