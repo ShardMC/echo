@@ -1,7 +1,8 @@
-package woid3;
+package woid3.visitor;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
+import woid3.header.ClassHeader;
 
 import java.util.function.Consumer;
 

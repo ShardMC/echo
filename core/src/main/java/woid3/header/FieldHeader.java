@@ -1,4 +1,4 @@
-package woid3;
+package woid3.header;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
@@ -68,5 +68,9 @@ public class FieldHeader {
                 ", signature='" + signature + '\'' +
                 ", value=" + value +
                 '}';
+    }
+
+    public void accept(ClassVisitor visitor) {
+        visitor.visitField(this.access, this.name, this.descriptor, this.descriptor, this.value);
     }
 }

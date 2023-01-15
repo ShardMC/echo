@@ -1,37 +1,33 @@
-package woid3;
+package woid3.visitor;
 
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 import org.objectweb.asm.MethodVisitor;
+import woid3.header.FieldHeader;
+import woid3.header.MethodHeader;
 
 public class CopyClassVisitor extends SimpleClassVisitor {
 
     private final SimpleClassVisitor original;
+    private final FieldDispatcher fieldDispatcher;
 
-    public CopyClassVisitor(SimpleClassVisitor original) {
-        this(original, null);
+    public CopyClassVisitor(SimpleClassVisitor original, ClassDispatcher dispatcher) {
+        this(original, dispatcher, null);
     }
 
-    public CopyClassVisitor(SimpleClassVisitor original, ClassVisitor classVisitor) {
+    public CopyClassVisitor(SimpleClassVisitor original, ClassDispatcher dispatcher, ClassVisitor classVisitor) {
         super(classVisitor);
 
         this.original = original;
+        this.fieldDispatcher = dispatcher.getFieldDispatcher();
     }
 
     @Override
     public FieldVisitor visitField(int access, String name, String descriptor, String signature, Object value) {
-        FieldHeader header = new FieldHeader(access, name, descriptor, signature, value);
+        FieldHeader header = this.fieldDispatcher.onField(new FieldHeader(access, name, descriptor, signature, value));
 
-        return new PreFieldVisitor(
-                s -> !s.equals("Lio/shardmc/echo/annotations/Shadow;"),
-                () -> this.original.visitField(
-                        header.getAccess(),
-                        header.getName(),
-                        header.getDescriptor(),
-                        header.getSignature(),
-                        header.getValue()
-                ),
-                super.visitField(access, name, descriptor, signature, value)
+        return new ConditionalFieldVisitor(
+                this.fieldDispatcher, header, super.visitField(access, name, descriptor, signature, value)
         );
     }
 
@@ -40,10 +36,10 @@ public class CopyClassVisitor extends SimpleClassVisitor {
         MethodHeader header = new MethodHeader(access, name, descriptor, signature, exceptions);
 
         if (!header.getName().equals("<init>")) {
-            return new PreMethodVisitor(
-                    s -> !s.equals("Lio/shardmc/echo/annotations/Shadow;"),
+            return new ConditionalMethodVisitor(
+                    s -> !s.startsWith("Lio/shardmc/echo/annotations"),
                     () -> new CopyMethodVisitor(
-                            this.original.getName(), this.getName(),
+                            this.original.getHeader().getName(), this.getHeader().getName(),
                             this.original.visitMethod(
                                     header.getAccess(),
                                     header.getName(),

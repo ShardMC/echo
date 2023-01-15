@@ -1,5 +1,6 @@
 package woid2.test;
 
+import io.shardmc.echo.annotations.Add;
 import io.shardmc.echo.annotations.Shadow;
 
 public class DummyEdit {
@@ -16,6 +17,11 @@ public class DummyEdit {
 
     @Shadow
     public void test3() {
+        this.test();
+    }
+
+    @Add(method = "", desc = "")
+    public void test4() {
         this.test();
     }
 }

@@ -1,22 +1,21 @@
-package woid4;
+package woid3.header;
 
-import org.objectweb.asm.ClassVisitor;
+import java.util.Arrays;
 
-public class FieldHeader {
+public class MethodHeader {
 
     private int access;
     private String name;
     private String descriptor;
     private String signature;
-    private Object value;
-    private ClassVisitor context;
+    private String[] exceptions;
 
-    public FieldHeader(int access, String name, String descriptor, String signature, Object value) {
+    public MethodHeader(int access, String name, String descriptor, String signature, String[] exceptions) {
         this.access = access;
         this.name = name;
         this.descriptor = descriptor;
         this.signature = signature;
-        this.value = value;
+        this.exceptions = exceptions;
     }
 
     public int getAccess() {
@@ -51,34 +50,22 @@ public class FieldHeader {
         this.signature = signature;
     }
 
-    public Object getValue() {
-        return this.value;
+    public String[] getExceptions() {
+        return this.exceptions;
     }
 
-    public void setValue(Object value) {
-        this.value = value;
+    public void setExceptions(String[] exceptions) {
+        this.exceptions = exceptions;
     }
 
     @Override
     public String toString() {
-        return "FieldHeader{" +
+        return "MethodHeader{" +
                 "access=" + access +
                 ", name='" + name + '\'' +
                 ", descriptor='" + descriptor + '\'' +
                 ", signature='" + signature + '\'' +
-                ", value=" + value +
+                ", exceptions=" + Arrays.toString(exceptions) +
                 '}';
-    }
-
-    public void accept(ClassVisitor visitor) {
-        this.context = visitor;
-    }
-
-    public void visit() {
-        this.visit(this.context);
-    }
-
-    public void visit(ClassVisitor context) {
-        context.visitField(this.access, this.name, this.descriptor, this.signature, this.value);
     }
 }

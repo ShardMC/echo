@@ -1,21 +1,22 @@
-package woid3;
+package woid3.visitor;
 
 import org.objectweb.asm.AnnotationVisitor;
-import org.objectweb.asm.FieldVisitor;
+import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
-public class PreFieldVisitor extends FieldVisitor {
+public class ConditionalMethodVisitor extends MethodVisitor {
 
     private final Predicate<String> predicate;
-    private final Runnable onVisit;
+    private final Supplier<MethodVisitor> delegate;
 
-    public PreFieldVisitor(Predicate<String> predicate, Runnable visit, FieldVisitor fv) {
-        super(Opcodes.ASM9, fv);
+    public ConditionalMethodVisitor(Predicate<String> predicate, Supplier<MethodVisitor> delegate, MethodVisitor mv) {
+        super(Opcodes.ASM9, mv);
 
         this.predicate = predicate;
-        this.onVisit = visit;
+        this.delegate = delegate;
     }
 
     boolean visit = true;
@@ -30,9 +31,11 @@ public class PreFieldVisitor extends FieldVisitor {
     }
 
     @Override
-    public void visitEnd() {
+    public void visitCode() {
         if (this.visit) {
-            this.onVisit.run();
+            this.mv = this.delegate.get();
         }
+
+        super.visitCode();
     }
 }

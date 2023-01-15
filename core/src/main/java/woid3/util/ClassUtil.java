@@ -1,7 +1,8 @@
-package woid3;
+package woid3.util;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
+import woid3.Main;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
