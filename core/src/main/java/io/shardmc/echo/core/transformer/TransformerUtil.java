@@ -6,10 +6,8 @@ import woid.node.ClassNode;
 import woid.node.FieldNode;
 import woid.node.MethodNode;
 import woid.node.annotation.AnnotationNode;
-import woid.node.method.insn.InsnList;
 import woid.node.method.insn.impl.FieldInsnNode;
 import woid.node.method.insn.impl.MethodInsnNode;
-import woid.node.method.insn.impl.VarInsnNode;
 
 import java.io.IOException;
 import java.util.List;

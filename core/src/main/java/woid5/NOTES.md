@@ -1,0 +1,1 @@
+ClassDispatcher-like class should be an abstraction layer of the required XVisitor class.

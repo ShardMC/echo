@@ -27,8 +27,8 @@ public class CopyClassVisitor extends SimpleClassVisitor {
         return new APMethodVisitor(
                 "Lio/shardmc/echo/annotations/",
                 s -> {
-                    if (s != null && s.equals("Add;")) {
-                        System.out.println("Add!");
+                    switch (s) {
+                        case "Add" -> System.out.println("Add!");
                     }
 
                     return new CopyMethodVisitor(

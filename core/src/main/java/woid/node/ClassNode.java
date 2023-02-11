@@ -8,7 +8,6 @@ import woid.node.clazz.RecordComponentNode;
 import woid.simple.SimpleClassVisitor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ClassNode extends SimpleClassVisitor {
@@ -135,69 +134,69 @@ public class ClassNode extends SimpleClassVisitor {
         return field;
     }
 
-    public void accept(ClassVisitor classVisitor) {
+    public void accept(ClassVisitor visitor) {
         // Visit the header.
-        classVisitor.visit(this.version, this.access, this.name, this.signature, this.superName, this.interfaces);
+        visitor.visit(this.version, this.access, this.name, this.signature, this.superName, this.interfaces);
 
         // Visit the source.
         if (this.file != null || this.debug != null) {
-            classVisitor.visitSource(this.file, this.debug);
+            visitor.visitSource(this.file, this.debug);
         }
 
         // Visit the module.
         if (this.module != null) {
-            this.module.accept(classVisitor);
+            this.module.accept(visitor);
         }
 
         // Visit the nest host class.
         if (this.nestHostClass != null) {
-            classVisitor.visitNestHost(nestHostClass);
+            visitor.visitNestHost(nestHostClass);
         }
 
         // Visit the outer class.
         if (this.outerClass != null) {
-            classVisitor.visitOuterClass(outerClass, outerMethod, outerMethodDesc);
+            visitor.visitOuterClass(outerClass, outerMethod, outerMethodDesc);
         }
 
         for (AnnotationNode annotation : this.annotations) {
-            annotation.accept(classVisitor.visitAnnotation(annotation.getDesc(), annotation.isVisible()));
+            annotation.accept(visitor.visitAnnotation(annotation.getDesc(), annotation.isVisible()));
         }
 
         for (TypeAnnotationNode typeAnnotation : this.typeAnnotations) {
             typeAnnotation.accept(
-                    classVisitor.visitTypeAnnotation(typeAnnotation.getTypeRef(), typeAnnotation.getTypePath(), typeAnnotation.getDesc(), typeAnnotation.isVisible())
+                    visitor.visitTypeAnnotation(typeAnnotation.getTypeRef(), typeAnnotation.getTypePath(), typeAnnotation.getDesc(), typeAnnotation.isVisible())
             );
         }
 
         for (Attribute attr : this.attributes) {
-            classVisitor.visitAttribute(attr);
+            visitor.visitAttribute(attr);
         }
 
         for (String nestMember : this.nestMembers) {
-            classVisitor.visitNestMember(nestMember);
+            visitor.visitNestMember(nestMember);
         }
 
         for (String permittedSubclass : this.permittedSubclasses) {
-            classVisitor.visitPermittedSubclass(permittedSubclass);
+            visitor.visitPermittedSubclass(permittedSubclass);
         }
 
         for (InnerClassNode innerClass : this.innerClasses) {
-            innerClass.accept(classVisitor);
+            innerClass.accept(visitor);
         }
 
         for (RecordComponentNode recordComponent : this.recordComponents) {
-            recordComponent.accept(classVisitor);
+            recordComponent.accept(visitor);
         }
 
         for (FieldNode field : this.fields) {
-            field.accept(classVisitor);
+            field.accept(visitor);
         }
 
         for (MethodNode method : this.methods) {
-            method.accept(classVisitor);
+            method.accept(visitor);
         }
 
-        classVisitor.visitEnd();
+        visitor.visitEnd();
     }
 
     public int getVersion() {
@@ -226,33 +225,5 @@ public class ClassNode extends SimpleClassVisitor {
 
     public List<FieldNode> getFields() {
         return this.fields;
-    }
-
-    @Override
-    public String toString() {
-        return "ClassNode{" +
-                "version=" + version +
-                ", access=" + access +
-                ", name='" + name + '\'' +
-                ", signature='" + signature + '\'' +
-                ", superName='" + superName + '\'' +
-                ", interfaces=" + Arrays.toString(interfaces) +
-                ", file='" + file + '\'' +
-                ", debug='" + debug + '\'' +
-                ", module=" + module +
-                ", nestHostClass='" + nestHostClass + '\'' +
-                ", outerClass='" + outerClass + '\'' +
-                ", outerMethod='" + outerMethod + '\'' +
-                ", outerMethodDesc='" + outerMethodDesc + '\'' +
-                ", annotations=" + annotations +
-                ", typeAnnotations=" + typeAnnotations +
-                ", nestMembers=" + nestMembers +
-                ", attributes=" + attributes +
-                ", permittedSubclasses=" + permittedSubclasses +
-                ", innerClasses=" + innerClasses +
-                ", recordComponents=" + recordComponents +
-                ", fields=" + fields +
-                ", methods=" + methods +
-                '}';
     }
 }

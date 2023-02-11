@@ -2,14 +2,17 @@ package woid.node;
 
 import org.objectweb.asm.*;
 import woid.Util;
-import woid.node.annotation.*;
+import woid.node.annotation.AnnotationNode;
+import woid.node.annotation.LocalVariableAnnotationNode;
+import woid.node.annotation.TypeAnnotationNode;
+import woid.node.method.LocalVariableNode;
+import woid.node.method.ParameterNode;
+import woid.node.method.TryCatchBlockNode;
+import woid.node.method.insn.InsnList;
 import woid.node.method.insn.impl.*;
 import woid.simple.SimpleMethodVisitor;
-import woid.node.method.insn.InsnList;
-import woid.node.method.*;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class MethodNode extends SimpleMethodVisitor {
@@ -331,27 +334,5 @@ public class MethodNode extends SimpleMethodVisitor {
 
     public boolean by(String name, String desc) {
         return this.getName().equals(name) && this.getDescriptor().equals(desc);
-    }
-
-    @Override
-    public String toString() {
-        return "MethodNode{" +
-                "maxStack=" + maxStack +
-                ", maxLocals=" + maxLocals +
-                ", annotationDefault=" + annotationDefault +
-                ", visibleAnnotableParameterCount=" + visibleAnnotableParameterCount +
-                ", invisibleAnnotableParameterCount=" + invisibleAnnotableParameterCount +
-                ", visibleParameterAnnotations=" + Arrays.toString(visibleParameterAnnotations) +
-                ", invisibleParameterAnnotations=" + Arrays.toString(invisibleParameterAnnotations) +
-                ", annotations=" + annotations +
-                ", typeAnnotations=" + typeAnnotations +
-                ", localVariableAnnotations=" + localVariableAnnotations +
-                ", attributes=" + attributes +
-                ", tryCatchBlocks=" + tryCatchBlocks +
-                ", parameters=" + parameters +
-                ", localVariables=" + localVariables +
-                ", instructions=" + instructions +
-                ", visited=" + visited +
-                '}';
     }
 }

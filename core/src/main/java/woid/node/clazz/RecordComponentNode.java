@@ -105,10 +105,10 @@ public class RecordComponentNode extends RecordComponentVisitor {
     /**
      * Makes the given class visitor visit this record component.
      *
-     * @param classVisitor a class visitor.
+     * @param visitor a class visitor.
      */
-    public void accept(ClassVisitor classVisitor) {
-        RecordComponentVisitor recordComponentVisitor = classVisitor.visitRecordComponent(this.name, this.descriptor, this.signature);
+    public void accept(ClassVisitor visitor) {
+        RecordComponentVisitor recordComponentVisitor = visitor.visitRecordComponent(this.name, this.descriptor, this.signature);
         if (recordComponentVisitor == null) {
             return;
         }

@@ -39,8 +39,8 @@ public class FieldNode extends SimpleFieldVisitor {
         this.attrs.add(attribute);
     }
 
-    public void accept(ClassVisitor classVisitor) {
-        FieldVisitor fieldVisitor = classVisitor.visitField(this.access, this.name, this.descriptor, this.signature, this.value);
+    public void accept(ClassVisitor visitor) {
+        FieldVisitor fieldVisitor = visitor.visitField(this.access, this.name, this.descriptor, this.signature, this.value);
         if (fieldVisitor == null) {
             return;
         }
@@ -74,14 +74,5 @@ public class FieldNode extends SimpleFieldVisitor {
 
     public List<AnnotationNode> getAnnotations() {
         return this.annotations;
-    }
-
-    @Override
-    public String toString() {
-        return "FieldNode{" +
-                "attrs=" + attrs +
-                ", annotations=" + annotations +
-                ", typeAnnotations=" + typeAnnotations +
-                '}';
     }
 }

@@ -15,7 +15,7 @@ public class InsnList extends ArrayList<AbstractInsnNode> {
         }
     }
 
-    public void accept(final MethodVisitor methodVisitor) {
+    public void accept(MethodVisitor methodVisitor) {
         for (AbstractInsnNode node : this) {
             node.accept(methodVisitor);
         }

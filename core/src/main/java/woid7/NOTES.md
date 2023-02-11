@@ -1,0 +1,1 @@
+woid7 is 7th implementation of woid with object-oriented style, but still fast

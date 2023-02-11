@@ -1,13 +1,10 @@
 package woid4;
 
-import com.sun.jdi.Method;
 import org.objectweb.asm.AnnotationVisitor;
 import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class APMethodVisitor extends MethodVisitor {
 
@@ -27,7 +24,7 @@ public class APMethodVisitor extends MethodVisitor {
     @Override
     public AnnotationVisitor visitAnnotation(String descriptor, boolean visible) {
         if (!this.done && descriptor.startsWith(this.prefix)) {
-            this.annotation = descriptor.replace(this.prefix, "");
+            this.annotation = descriptor.replace(this.prefix, "").replace(";", "");
             this.done = true;
         }
 

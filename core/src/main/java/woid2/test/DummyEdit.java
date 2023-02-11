@@ -7,6 +7,9 @@ public class DummyEdit {
 
     public String test = "test2";
 
+    @Shadow
+    public String test2 = "test2";
+
     public void test() {
         System.out.println("Hello World");
     }

@@ -84,12 +84,24 @@ public class LocalVariableAnnotationNode extends TypeAnnotationNode {
                 methodVisitor.visitLocalVariableAnnotation(
                         this.getTypeRef(),
                         this.getTypePath(),
-                        this.start,
-                        this.end,
-                        this.index,
+                        this.getStart(),
+                        this.getEnd(),
+                        this.getIndex(),
                         this.getDesc(),
                         this.isVisible()
                 )
         );
+    }
+
+    public Label[] getStart() {
+        return this.start;
+    }
+
+    public Label[] getEnd() {
+        return this.end;
+    }
+
+    public int[] getIndex() {
+        return this.index;
     }
 }
